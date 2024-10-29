@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>MagicPhoto</title>
+  <link href="css/style.css" rel="stylesheet">
+</head>
+<body>
+  <header>
+    <div class="wrapper-menu">
+      <a class="logo" href="#">MagicPhoto</a>
+      <div class="menu">
+        <a class="item-menu" href="./index.html">Home</a>
+        <a class="item-menu active" href="./crop.html">Crop</a>
+        <a class="item-menu" href="./rotate.html">Rotate</a>
+        <a class="item-menu" href="./filter.html">Black and White filter</a>
+      </div>
+    </div>
+  </header>
+
+  <div class="wrapper-photo">
+    <div class="upload">
+      <label class="custom-file-upload">
+        <input class="btnUpload" name="upload" type="file" placeholder="Upload image" accept=".jpg,.jpeg,.png,.gif"/>
+        Upload image
+        <span class="icon">
+          <img alt="upload image" src="./images/btnIcon.png" />
+        </span>
+      </label>
+    </div>
+    <div class="editedPhoto">
+      <img alt="Example photo" src="./images/example-photo.png" width="173" height="259" />
+    </div>
+  </div>
+
+  <div class="wrapper-main">
+    <canvas class="hidden"></canvas>
+    <div class="txtCenter">
+      <h3>Crop your photos online for free</h3>
+      <p>
+        Would you like to crop a photo freely? We are happy to inform you that now you can crop photos thanks to a free-to-use and user-friendly photo editor, enabling our users to crop out unnecessary parts of the photo. You just need to upload a photo and select area you want to save. Try it, you won't regret it! Tell your friends about how to crop pictures in a second.
+      </p>
+    </div>
+  </div>
+
+  <footer>
+    <a class="logo" href="#">MagicPhoto</a>
+  </footer>
+</body>
+</html>
