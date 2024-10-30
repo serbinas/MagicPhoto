@@ -8,6 +8,7 @@ const upload = document.querySelector('.upload');
 const download = document.querySelector('.download');
 const editedPhoto = document.querySelector('.editedPhoto img');
 const applyFilterButton = document.querySelector('.btn-filter');
+const applyCropButton = document.querySelector('.btn-crop');
 
 
 let currentImage = null;
@@ -58,25 +59,39 @@ downloadButton.addEventListener('click', downloadImage);
 //draw image with rotate
 function drawImage() {
   ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+  const maxCanvasWidth = 1200;
+  const maxCanvasHeight = 800;
+
+  let scale = 1;
+  if (currentImage.width > maxCanvasWidth || currentImage.height > maxCanvasHeight) {
+      const widthScale = maxCanvasWidth / currentImage.width;
+      const heightScale = maxCanvasHeight / currentImage.height;
+      scale = Math.min(widthScale, heightScale);
+  }
+
   if (currentRotation % 180 !== 0) {
-      canvas.width = currentImage.height;
-      canvas.height = currentImage.width;
+      canvas.width = currentImage.height * scale;
+      canvas.height = currentImage.width * scale;
   } else {
-      canvas.width = currentImage.width;
-      canvas.height = currentImage.height;
+      canvas.width = currentImage.width * scale;
+      canvas.height = currentImage.height * scale;
   }
 
   ctx.save();
   ctx.translate(canvas.width / 2, canvas.height / 2);
   ctx.rotate((currentRotation * Math.PI) / 180);
+
   ctx.drawImage(
       currentImage,
-      -currentImage.width / 2,
-      -currentImage.height / 2
+      - (currentImage.width * scale) / 2,
+      - (currentImage.height * scale) / 2,
+      currentImage.width * scale,
+      currentImage.height * scale
   );
+
   ctx.restore();
 }
-
 
 //show preview
 function updateEditedPhotoPreview() {
@@ -126,3 +141,68 @@ function applyGrayscaleFilter() {
 }
 
 applyFilterButton.addEventListener('click', applyGrayscaleFilter);
+
+
+let isDrawing = false;
+let startX, startY, endX, endY;
+
+function drawImageCrop() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); 
+  ctx.drawImage(currentImage, 0, 0, canvas.width, canvas.height); 
+}
+
+canvas.addEventListener('mousedown', (e) => {
+  startX = e.offsetX;
+  startY = e.offsetY;
+  isDrawing = true;
+});
+
+canvas.addEventListener('mousemove', (e) => {
+  if (isDrawing) {
+      endX = e.offsetX;
+      endY = e.offsetY;
+      drawSelection();
+  }
+});
+
+canvas.addEventListener('mouseup', () => {
+  isDrawing = false;
+});
+
+
+function drawSelection() {
+  ctx.clearRect(0, 0, canvas.width, canvas.height); 
+  drawImageCrop();
+
+  ctx.strokeStyle = 'red';
+  ctx.lineWidth = 2;
+  ctx.strokeRect(startX, startY, endX - startX, endY - startY);
+}
+
+function cropImage() {
+  const width = endX - startX - 2;
+  const height = endY - startY - 2;
+
+  if (width > 0 && height > 0) {
+      const croppedCanvas = document.createElement('canvas');
+      const croppedCtx = croppedCanvas.getContext('2d');
+      croppedCanvas.width = width;
+      croppedCanvas.height = height;
+
+      croppedCtx.drawImage(canvas, startX + 1, startY + 1, width, height, 0, 0, width, height);
+
+      canvas.width = width;
+      canvas.height = height;
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.drawImage(croppedCanvas, 0, 0);
+
+      startX = startY = endX = endY = 0;
+      isDrawing = false;
+      upload.classList.add('hidden');
+      download.classList.remove('hidden');
+      updateEditedPhotoPreview();
+  }
+}
+
+
+applyCropButton.addEventListener('click', cropImage);

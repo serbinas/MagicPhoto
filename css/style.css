@@ -202,6 +202,7 @@ input[type="file"] {
 
 .wrapper-canvas {
   margin: 150px auto 0;
+  text-align: center;
 }
 
 .wrapper-button {
@@ -211,7 +212,8 @@ input[type="file"] {
 }
 
 .btn-rotate,
-.btn-filter {
+.btn-filter,
+.btn-crop {
   width: 120px;
   height: 60px;
   border-radius: 20px;
