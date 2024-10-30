@@ -29,13 +29,29 @@
         </span>
       </label>
     </div>
+
+    <div class="download hidden">
+      <label class="file-download">
+        Download image
+        <span class="icon">
+          <img alt="download image" src="./images/btnIcon.png" />
+        </span>
+      </label>
+    </div>
+
     <div class="editedPhoto">
       <img alt="Example photo" src="./images/example-photo.png" width="173" height="259" />
     </div>
   </div>
 
   <div class="wrapper-main">
-    <canvas class="hidden"></canvas>
+    <div class="wrapper-canvas hidden">
+      <canvas id="imageCanvas"></canvas>
+      <div class="wrapper-button">
+        <div class="btn-filter">Apply</div>
+      </div>
+    </div>
+
     <div class="txtCenter">
       <h3>Make black and white photos online for free</h3>
       <p>   
@@ -47,5 +63,7 @@
   <footer>
     <a class="logo" href="#">MagicPhoto</a>
   </footer>
+
+  <script src="./js/script.js"></script>
 </body>
 </html>

@@ -7,6 +7,7 @@ const rotateButtons = document.querySelectorAll('.btn-rotate');
 const upload = document.querySelector('.upload');
 const download = document.querySelector('.download');
 const editedPhoto = document.querySelector('.editedPhoto img');
+const applyFilterButton = document.querySelector('.btn-filter');
 
 
 let currentImage = null;
@@ -38,7 +39,7 @@ fileInput.addEventListener('change', function(event) {
 function downloadImage() {
     const link = document.createElement('a');
     link.href = canvas.toDataURL('image/png');
-    link.download = 'rotated-image.png'; 
+    link.download = 'new-image.png'; 
     link.click(); 
 
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -103,3 +104,25 @@ rotateButtons.forEach(button => {
       updateEditedPhotoPreview();
   });
 });
+
+
+// filter
+function applyGrayscaleFilter() {
+  const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+  const data = imageData.data;
+
+  for (let i = 0; i < data.length; i += 4) {
+      const avg = (data[i] + data[i + 1] + data[i + 2]) / 3;
+      data[i] = avg;
+      data[i + 1] = avg;
+      data[i + 2] = avg;
+  }
+
+  ctx.putImageData(imageData, 0, 0);
+
+  upload.classList.add('hidden');
+  download.classList.remove('hidden');
+  updateEditedPhotoPreview();
+}
+
+applyFilterButton.addEventListener('click', applyGrayscaleFilter);

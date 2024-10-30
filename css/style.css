@@ -210,7 +210,8 @@ input[type="file"] {
   margin-top: 20px;
 }
 
-.btn-rotate {
+.btn-rotate,
+.btn-filter {
   width: 120px;
   height: 60px;
   border-radius: 20px;
