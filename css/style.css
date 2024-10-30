@@ -138,7 +138,8 @@ footer .logo {
 }
 
 .upload,
-.editedPhoto {
+.editedPhoto,
+.download {
   width: 496px;
   height: 285px;
   border-radius: 20px;
@@ -178,7 +179,8 @@ input[type="file"] {
   display: none;
 }
 
-.custom-file-upload {
+.custom-file-upload,
+.file-download {
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -193,6 +195,29 @@ input[type="file"] {
   cursor: pointer;
 }
 
-.custom-file-upload .icon {
+.custom-file-upload .icon,
+.file-download .icon {
   margin-left: 8px; 
+}
+
+.wrapper-canvas {
+  margin: 150px auto 0;
+}
+
+.wrapper-button {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 20px;
+}
+
+.btn-rotate {
+  width: 120px;
+  height: 60px;
+  border-radius: 20px;
+  line-height: 60px;
+  text-align: center;
+  font-size: 34px;
+  color: #fff;
+  background-color: #e28624;
+  cursor: pointer;
 }
